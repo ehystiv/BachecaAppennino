@@ -1,11 +1,16 @@
 const { Router } = require('express')
-
+const jwt = require('jsonwebtoken')
 const Post = require('./../../src/db/schemas/post').model
 
 const router = new Router()
 
 router.post('/postit', async (req, res, next) => {
-  if (!req.isTokenValid) {
+  try {
+    jwt.verify(
+      req?.headers?.authorization.split(' ')[1],
+      process.env.JWT_SECRET
+    )
+  } catch (e) {
     res.status(403).end()
     return
   }
@@ -18,7 +23,7 @@ router.post('/postit', async (req, res, next) => {
   }
 
   try {
-    await new Post({ toPost }).save()
+    await new Post(toPost).save()
 
     res.json({ status: 'success' })
   } catch (e) {

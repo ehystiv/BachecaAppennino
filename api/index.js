@@ -13,20 +13,16 @@ try {
   const login = require('./routes/login')
   const user = require('./routes/user')
   const postit = require('./routes/postit')
+  const getpost = require('./routes/getpost')
 
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
-
-  app.use((req, res, next) => {
-    req.jwtToken = req?.headers?.authorization.split(' ')[1] ?? null
-
-    next()
-  })
 
   app.use(signup)
   app.use(login)
   app.use(user)
   app.use(postit)
+  app.use(getpost)
 
   connectToDB()
 
