@@ -49,8 +49,10 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: '/',
-    browserBaseURL: '/',
+    baseURL:
+      process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : '/',
+    browserBaseURL:
+      process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : '/',
     retry: { retries: 3 },
   },
 

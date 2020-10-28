@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row justify="center" align="start">
-      <v-col sm="12" md="12" lg="4">
+      <v-col sm="12" md="4" lg="4">
         <v-card color="accent" outlined flat>
           <v-card-title>Posta!</v-card-title>
           <v-container fluid>
@@ -34,13 +34,18 @@
           </v-card-actions>
         </v-card>
       </v-col>
-      <v-col sm="12" md="12" lg="8">
-        <v-card v-for="post in posts" :key="post._id">
-          <v-card-title>{{ post.text }}</v-card-title>
+      <v-col sm="12" md="8" lg="8">
+        <v-card v-for="post in posts" :key="post._id" class="mb-2">
+          <v-card-title>{{ post.title }}</v-card-title>
           <v-card-subtitle
-            >{{ post.anon ? post.author.anon_name : post.author.nickname }} -
+            >{{ post.anon ? post.author.anon_name : post.author.nickname }}
+            <span v-if="post.author.frazione && !post.anon"
+              >da {{ post.author.frazione }}
+            </span>
+            -
             {{ $moment(post.date).format('DD/MM/YYYY HH:MM') }}</v-card-subtitle
           >
+          <v-card-text class="body-1 black--text">{{ post.text }}</v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -50,6 +55,12 @@
 <script>
 export default {
   components: {},
+
+  async asyncData({ $axios }) {
+    const { posts } = await $axios.$get('/api/getpost')
+
+    return { posts }
+  },
   data() {
     return {
       newPost: {
@@ -57,8 +68,6 @@ export default {
         text: null,
         anon: false,
       },
-
-      posts: [],
 
       rules: {
         maxLenght: (v) =>
@@ -76,12 +85,22 @@ export default {
             user: this.$auth.user._id,
           })
           .then((res) => {
-            console.log(res.status, res.error)
+            if (res.status === 'success') this.reload()
+            this.$refs.postForm.reset()
           })
           .catch((err) => {
             console.log(err)
           })
       }
+    },
+
+    reload() {
+      this.$axios
+        .$get('/api/getpost')
+        .then((res) => (this.posts = res.posts))
+        .catch((e) => {
+          console.error(e)
+        })
     },
   },
 

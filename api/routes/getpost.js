@@ -5,7 +5,7 @@ const router = new Router()
 
 router.get('/getpost', async (req, res, next) => {
   try {
-    const posts = await Post.find().populate('author').sort({ date: 1 })
+    const posts = await Post.find().populate('author').sort({ date: -1 })
 
     res.json({ posts })
   } catch (e) {
