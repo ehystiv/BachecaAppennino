@@ -50,9 +50,9 @@ export default {
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     baseURL:
-      process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : '/',
+      process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:3000',
     browserBaseURL:
-      process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : '/',
+      process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:3000',
     retry: { retries: 3 },
   },
 
@@ -71,6 +71,9 @@ export default {
     redirect: {
       login: '/?message="Accesso effettuato"',
       logout: '/',
+    },
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 30,
     },
   },
 
