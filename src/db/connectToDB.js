@@ -17,6 +17,7 @@ module.exports = function () {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
       authSource: process.env.DB_AUTH,
     })
   }
