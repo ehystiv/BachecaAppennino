@@ -13,6 +13,8 @@ try {
   const user = require('./routes/user')
   const postit = require('./routes/postit')
   const getpost = require('./routes/getpost')
+  const addfrazione = require('./routes/addfrazione')
+  const changepass = require('./routes/changepass')
 
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
@@ -22,6 +24,8 @@ try {
   app.use(user)
   app.use(postit)
   app.use(getpost)
+  app.use(addfrazione)
+  app.use(changepass)
 
   connectToDB()
 
