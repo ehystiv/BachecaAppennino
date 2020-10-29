@@ -38,6 +38,27 @@
                 </v-col>
               </v-row>
             </v-form>
+            <span class="title">DISCLAIMER:</span>
+            <ul>
+              <li>
+                Non controllo la vostra mail, potete usarne anche una falsa
+              </li>
+              <li>Il nickname è unico, e non potete modificarlo in seguito</li>
+              <li>
+                La password la conservo cifrata, in maniera che sia impossibile
+                decifrarla e quindi conoscerla (le vostre password sono al
+                sicuro con me)
+              </li>
+              <li>
+                Non uso alcun cookie (se non quello per mantenervi collegati)
+              </li>
+              <li>Non condivido ALCUN dato con nessuno</li>
+              <li>Non potete (per ora) cancellare il vostro account</li>
+              <li>
+                Questo sito è stato programmato in tipo un'ora: gli errori ci
+                sono, ma vedeteli una feature estetica
+              </li>
+            </ul>
           </v-container>
           <v-card-actions>
             <v-spacer />
