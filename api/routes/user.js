@@ -20,7 +20,7 @@ router.post('/user', async (req, res, next) => {
 
   const user = await User.findOne({
     uuid: data.uuid.substring(1, data.uuid.lenght),
-  })
+  }).select('-password -__v')
 
   res.json({ data: user })
 })
