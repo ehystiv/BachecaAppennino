@@ -1,6 +1,6 @@
 <template>
   <v-card color="accent" outlined flat class="mb-5">
-    <v-card-title>Posta!</v-card-title>
+    <v-card-title>Scrivi un post</v-card-title>
     <v-container fluid>
       <v-form ref="postForm" :disabled="!$auth.loggedIn">
         <v-text-field
