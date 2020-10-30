@@ -16,10 +16,11 @@ router.post('/user', async (req, res, next) => {
     )
   } catch (e) {
     res.status(403).end()
+    console.warn('Bad token')
   }
 
   const user = await User.findOne({
-    uuid: data.uuid.substring(1, data.uuid.lenght),
+    uuid: data.uuid,
   }).select('-password -__v')
 
   res.json({ data: user })
