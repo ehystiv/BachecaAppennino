@@ -12,7 +12,7 @@ try {
   const login = require('./routes/login')
   const user = require('./routes/user')
   const postit = require('./routes/postit')
-  const getpost = require('./routes/getposts')
+  const getposts = require('./routes/getposts')
   const addfrazione = require('./routes/addfrazione')
   const changepass = require('./routes/changepass')
 
@@ -23,7 +23,7 @@ try {
   app.use(login)
   app.use(user)
   app.use(postit)
-  app.use(getpost)
+  app.use(getposts)
   app.use(addfrazione)
   app.use(changepass)
 
