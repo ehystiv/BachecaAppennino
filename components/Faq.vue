@@ -1,5 +1,5 @@
 <template>
-  <v-card v-if="!$vuetify.breakpoint.mobile" color="primary" outlined flat>
+  <v-card v-if="!$vuetify.breakpoint.mobile" color="primary" outlined exact>
     <v-card-title>FAQ</v-card-title>
     <v-card-text
       >Scrivi quello che ti pare, qui è tutto anonimo, mica come da Ceppo.
