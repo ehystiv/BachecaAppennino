@@ -27,6 +27,7 @@
     "uuid": "^8.3.1"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "@nuxtjs/eslint-config": "^3.1.0",
     "@nuxtjs/eslint-module": "^2.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
