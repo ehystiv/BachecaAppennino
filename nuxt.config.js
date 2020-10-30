@@ -79,13 +79,14 @@ export default {
 
   loading: {
     name: 'chasing-dots',
-    color: '#ff5638',
+    color: '#0099ff',
     background: 'white',
     height: '4px',
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
+    defaultAssets: { icons: 'fa' },
     customVariables: ['~/assets/variables.scss'],
     theme: {
       dark: false,
