@@ -45,6 +45,8 @@
 
 <script>
 export default {
+  name: 'LoginDialog',
+
   data() {
     return {
       login: {
@@ -69,9 +71,8 @@ export default {
       ) {
         this.$auth
           .loginWith('local', { data: this.login })
-          .then(() => {
+          .then((res) => {
             this.$nuxt.$loading.finish()
-            this.dialog = false
             this.$toast.success('Login effettuato')
           })
           .catch((e) => {
