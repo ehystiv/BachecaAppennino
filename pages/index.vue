@@ -23,7 +23,7 @@ export default {
   components: { FAQ, PostCard, PostBox },
 
   async asyncData({ $axios }) {
-    const { posts } = await $axios.$get('/api/getpost')
+    const { posts } = await $axios.$get('/api/getposts')
 
     return { posts }
   },
