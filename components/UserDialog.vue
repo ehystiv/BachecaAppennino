@@ -53,6 +53,8 @@
 
 <script>
 export default {
+  name: 'UserDialog',
+
   data() {
     return {
       update: {
