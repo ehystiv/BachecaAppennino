@@ -14,11 +14,13 @@ router.post('/login', async (req, res, next) => {
 
     if (!user) {
       res.status(471).end()
+      console.warn('No user')
       return
     }
 
     if (!compareSync(loginInfo.password, user.password)) {
       res.status(472).end()
+      console.warn('Wrong password')
       return
     }
 
