@@ -1,11 +1,11 @@
 <template>
   <v-container fluid>
     <v-row justify="center" align="start">
-      <v-col sm="12" md="4" lg="4">
-        <PostBox @reload="realod()" />
+      <v-col cols="12" sm="12" md="4" lg="4">
+        <PostBox @reload="reload()" />
         <FAQ />
       </v-col>
-      <v-col sm="12" md="8" lg="8">
+      <v-col cols="12" sm="12" md="8" lg="8">
         <div v-for="post in posts" :key="post._id">
           <PostCard :post="post" />
         </div>
@@ -29,6 +29,10 @@ export default {
   },
   data() {
     return {}
+  },
+
+  mounted() {
+    setInterval(() => this.$nuxt.refresh(), 1000 * 60 * 10)
   },
 
   methods: {
