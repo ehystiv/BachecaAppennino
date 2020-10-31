@@ -7,7 +7,7 @@
       </v-col>
       <v-col cols="12" sm="12" md="8" lg="8">
         <div v-for="post in posts" :key="post._id">
-          <PostCard :post="post" />
+          <PostCard :post="post" :comment="true" />
         </div>
       </v-col>
     </v-row>
@@ -23,7 +23,7 @@ export default {
   components: { FAQ, PostCard, PostBox },
 
   async asyncData({ $axios }) {
-    const { posts } = await $axios.$get('/api/getposts')
+    const { posts } = await $axios.$get('/api/post')
 
     return { posts }
   },
@@ -38,7 +38,7 @@ export default {
   methods: {
     reload() {
       this.$axios
-        .$get('/api/getpost')
+        .$get('/api/post')
         .then((res) => (this.posts = res.posts))
         .catch((e) => {
           console.error(e)

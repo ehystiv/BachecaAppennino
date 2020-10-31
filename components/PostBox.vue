@@ -55,7 +55,7 @@ export default {
     postIt() {
       if (this.$refs.postForm.validate()) {
         this.$axios
-          .$post('/api/postit', {
+          .$post('/api/post', {
             post: this.newPost,
             user: this.$auth.user._id,
           })

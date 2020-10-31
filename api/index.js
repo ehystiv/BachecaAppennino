@@ -8,22 +8,16 @@ try {
   const app = express()
 
   // Require API routes
-  const signup = require('./routes/signup')
-  const login = require('./routes/login')
-  const user = require('./routes/user')
-  const postit = require('./routes/postit')
-  const getposts = require('./routes/getposts')
+  const auth = require('./routes/auth')
+  const post = require('./routes/post')
   const addfrazione = require('./routes/addfrazione')
   const changepass = require('./routes/changepass')
 
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
 
-  app.use(signup)
-  app.use(login)
-  app.use(user)
-  app.use(postit)
-  app.use(getposts)
+  app.use('/auth', auth)
+  app.use(post)
   app.use(addfrazione)
   app.use(changepass)
 

@@ -97,7 +97,7 @@ export default {
   methods: {
     async register() {
       if (this.$refs.form.validate()) {
-        const result = await this.$axios.$post('/api/signup', this.signup)
+        const result = await this.$axios.$post('/api/auth/signup', this.signup)
 
         if (result.status === 'success') {
           this.$nuxt.$loading.finish()

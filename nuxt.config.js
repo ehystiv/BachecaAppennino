@@ -60,16 +60,19 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/api/login', method: 'post', propertyName: 'token' },
+          login: {
+            url: '/api/auth/login',
+            method: 'post',
+            propertyName: 'token',
+          },
           logout: false,
-          user: { url: '/api/user', method: 'post', propertyName: 'data' },
+          user: { url: '/api/auth/user', method: 'post', propertyName: 'data' },
         },
         tokenRequired: true,
         tokenType: 'Bearer',
       },
     },
     redirect: {
-      login: '/?message="Accesso effettuato"',
       logout: '/',
     },
     cookie: {
