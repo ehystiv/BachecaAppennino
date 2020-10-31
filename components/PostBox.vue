@@ -65,12 +65,12 @@ export default {
               this.$refs.postForm.reset()
               this.$toast.success('Postato!')
             } else if (res.status === 'failed') {
-              this.$toast.error('Impossibili postare, riprova più tardi')
+              this.$toast.error('Impossibile postare, riprova più tardi')
             }
           })
           .catch((err) => {
             console.log(err)
-            this.$toast.error('Impossibili postare, riprova più tardi')
+            this.$toast.error('Impossibile postare, riprova più tardi')
           })
       }
     },
