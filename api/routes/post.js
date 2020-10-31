@@ -1,20 +1,9 @@
 const { Router } = require('express')
-const jwt = require('jsonwebtoken')
 
 const Post = require('../../src/db/schemas/post').model
 const User = require('../../src/db/schemas/user').model
 
 const router = new Router()
-
-function verifyJWT(token, res) {
-  try {
-    const data = jwt.verify(token, process.env.JWT_SECRET)
-    return data
-  } catch (e) {
-    res.status(403).end()
-    return false
-  }
-}
 
 router.get('/post', async (req, res, next) => {
   const id = req.query.id ?? false
@@ -67,69 +56,74 @@ router.get('/post', async (req, res, next) => {
 })
 
 router.post('/post', async (req, res, next) => {
-  const data = verifyJWT(req?.headers?.authorization.split(' ')[1], res)
+  if (!req.JWT.isValid()) {
+    res.status(403).end()
+    return
+  }
 
-  if (data) {
-    const toPost = {
-      title: req.body.post.title,
-      text: req.body.post.text,
-      anon: req.body.post.anon,
-      author: req.body.user,
-    }
+  const toPost = {
+    title: req.body.post.title,
+    text: req.body.post.text,
+    anon: req.body.post.anon,
+    author: req.body.user,
+  }
 
-    try {
-      await new Post(toPost).save()
+  try {
+    await new Post(toPost).save()
 
-      res.json({ status: 'success' })
-    } catch (e) {
-      console.error(e)
-      res.status(500).json({ status: 'failed', error: e })
-    }
+    res.json({ status: 'success' })
+  } catch (e) {
+    console.error(e)
+    res.status(500).json({ status: 'failed', error: e })
   }
 })
 
 router.put('/post', async (req, res, next) => {
-  const data = verifyJWT(req?.headers?.authorization.split(' ')[1], res)
+  if (!req.JWT.isValid()) {
+    res.status(403).end()
+    return
+  }
 
-  if (data) {
-    if (req.body.comment && req.body.id) {
-      const commentText = req.body.comment
-      const postID = req.body.postID
+  const data = req.JWT.getData()
 
-      try {
-        const user = await User.findOne({ uuid: data.uuid })
+  if (req.body.comment && req.body.id) {
+    const commentText = req.body.comment
+    const postID = req.body.postID
 
-        const comment = {
-          user: user._id,
-          text: commentText,
-        }
+    try {
+      const user = await User.findOne({ uuid: data.uuid })
 
-        await Post.updateOne({ __id: postID }, { $push: { comment } })
-
-        res.json({ status: 'success' })
-      } catch (e) {
-        console.error(e)
-        res.json({ status: 'failed', error: e })
+      const comment = {
+        user: user._id,
+        text: commentText,
       }
+
+      await Post.updateOne({ __id: postID }, { $push: { comment } })
+
+      res.json({ status: 'success' })
+    } catch (e) {
+      console.error(e)
+      res.json({ status: 'failed', error: e })
     }
   }
 })
 
 router.delete('/post', async (req, res, next) => {
-  const data = verifyJWT(req?.headers?.authorization.split(' ')[1], res)
+  if (!req.JWT.isValid()) {
+    res.status(403).end()
+    return
+  }
 
-  if (data) {
-    const id = req.body.id
+  const id = req.body.id
 
-    if (!id) res.json({ status: 'failed', error: 'No id' }).end()
-    else {
-      try {
-        await Post.deleteOne({ _id: id })
-        res.json({ status: 'success' })
-      } catch (e) {
-        console.error(e)
-        res.json({ status: 'failed', error: e })
-      }
+  if (!id) res.json({ status: 'failed', error: 'No id' }).end()
+  else {
+    try {
+      await Post.deleteOne({ _id: id })
+      res.json({ status: 'success' })
+    } catch (e) {
+      console.error(e)
+      res.json({ status: 'failed', error: e })
     }
   }
 })

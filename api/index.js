@@ -8,6 +8,7 @@ try {
   const app = express()
 
   // Require API routes
+  const validateToken = require('./validateToken')
   const auth = require('./routes/auth')
   const post = require('./routes/post')
   const addfrazione = require('./routes/addfrazione')
@@ -15,6 +16,7 @@ try {
 
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
+  app.use(validateToken)
 
   app.use('/auth', auth)
   app.use(post)

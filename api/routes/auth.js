@@ -65,16 +65,12 @@ router.post('/login', async (req, res, next) => {
 })
 
 router.post('/user', async (req, res, next) => {
-  let data
-  try {
-    data = jwt.verify(
-      req?.headers?.authorization.split(' ')[1],
-      process.env.JWT_SECRET
-    )
-  } catch (e) {
+  if (!req.JWT.isValid()) {
     res.status(403).end()
     console.warn('Bad token')
   }
+
+  const data = req.JWT.getData()
 
   const user = await User.findOne({
     uuid: data.uuid,
@@ -96,3 +92,5 @@ function getAnonName() {
 
   return names[Math.floor(Math.random() * names.length)]
 }
+
+module.exports = router
