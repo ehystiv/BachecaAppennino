@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const morgan = require('morgan')
 
 const connectToDB = require('./../src/db/connectToDB')
 
@@ -11,17 +12,20 @@ try {
   const validateToken = require('./validateToken')
   const auth = require('./routes/auth')
   const post = require('./routes/post')
-  const addfrazione = require('./routes/addfrazione')
-  const changepass = require('./routes/changepass')
+  const userInfo = require('./routes/userInfo')
 
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
   app.use(validateToken)
+  app.use(
+    morgan(
+      '[ from :remote-addr ] :method :http-version \t:url \tstatus::status - :response-time ms'
+    )
+  )
 
   app.use('/auth', auth)
   app.use(post)
-  app.use(addfrazione)
-  app.use(changepass)
+  app.use('/userinfo', userInfo)
 
   connectToDB()
 

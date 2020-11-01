@@ -7,7 +7,7 @@
       </v-col>
       <v-col cols="12" sm="12" md="8" lg="8">
         <div v-for="post in posts" :key="post._id">
-          <PostCard :post="post" :comment="true" />
+          <PostCard :post="post" :comment="false" />
         </div>
       </v-col>
     </v-row>

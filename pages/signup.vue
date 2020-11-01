@@ -88,7 +88,7 @@ export default {
       },
 
       rules: {
-        required: (v) => !!v || 'Campo obbligatorio',
+        required: (v) => (!!v && v.trim().length !== 0) || 'Campo obbligatorio',
         email: (v) => /.+@.+\..+/.test(v) || "l'Email deve essere valida",
       },
     }

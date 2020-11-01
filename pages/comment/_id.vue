@@ -2,8 +2,12 @@
   <v-container fluid>
     <v-row align="start" justify="center">
       <v-col cols="12" sm="12" md="10" lg="8" xl="6">
-        <PostCard :post="post" class="mb-15" :postid="post._id" />
-        <CommentList :comments="post.comment" @refresh="refreshComments()" />
+        <PostCard :post="post" class="mb-15" />
+        <CommentList
+          :comments="post.comment"
+          :postid="post._id"
+          @refresh="refreshComments()"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -22,15 +26,17 @@ export default {
   async asyncData({ params, $axios }) {
     const id = params.id
 
-    const post = await $axios.$get('/api/post?id=' + id)
+    const res = await $axios.$get('/api/post?id=' + id)
 
-    return { post: post.post }
+    return { post: res.post }
   },
 
   methods: {
-    async refreshComments() {
-      // const post = await this.$axios.$get('/api/post?id=' + this.post._id)
-      // this.post = post
+    refreshComments() {
+      this.$axios
+        .$get('/api/post?id=' + this.post._id)
+        .then((res) => (this.post = res.post))
+        .cathc((e) => console.error(e))
     },
   },
 }

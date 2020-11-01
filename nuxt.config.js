@@ -13,7 +13,7 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [],
+  css: ['~/assets/toast.scss'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [],
@@ -50,9 +50,9 @@ export default {
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     baseURL:
-      process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:3000',
+      process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8080',
     browserBaseURL:
-      process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:3000',
+      process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8080',
     retry: { retries: 3 },
   },
 
@@ -116,8 +116,15 @@ export default {
   toast: {
     position: 'top-right',
     duration: 5000,
+    className: 'toast',
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
+
+  ssr: false,
+
+  server: {
+    port: 8080,
+  },
 }

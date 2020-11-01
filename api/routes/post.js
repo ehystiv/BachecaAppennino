@@ -17,15 +17,16 @@ router.get('/post', async (req, res, next) => {
           _id: 0,
           email: 0,
           password: 0,
+          anon_name: 0,
         })
-        /* .populate('comment.user', {
-        __v: 0,
-        _id: 0,
-        anon_name: 0,
-        email: 0,
-        password: 0,
-      }) */
-        .sort({ 'comment.date': -1 })
+        .populate('comment.user', {
+          __v: 0,
+          _id: 0,
+          anon_name: 0,
+          email: 0,
+          password: 0,
+        })
+        .sort({ 'comment.date': 1 })
 
       console.log(post)
 

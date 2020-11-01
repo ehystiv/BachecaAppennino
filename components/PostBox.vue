@@ -8,7 +8,7 @@
           outlined
           label="Titolo"
           counter="50"
-          :rules="[rules.maxLenght]"
+          :rules="[rules.maxLenght, rules.required]"
           maxlength="50"
         >
         </v-text-field>
@@ -39,20 +39,23 @@ export default {
   data() {
     return {
       newPost: {
-        title: null,
-        text: null,
+        title: '',
+        text: '',
         anon: false,
       },
 
       rules: {
         maxLenght: (v) =>
           v ? v.length <= 50 : false || 'Massimo 50 caratteri',
+        required: (v) =>
+          (!!v && v.trim().length !== 0) || 'Il campo è obbligatorio',
       },
     }
   },
 
   methods: {
     postIt() {
+      this.newPost.title = this.newPost.title.trim()
       if (this.$refs.postForm.validate()) {
         this.$axios
           .$post('/api/post', {

@@ -1,5 +1,5 @@
 <template>
-  <v-list dense two-line flat outlined>
+  <v-list dense three-line flat outlined>
     <v-list-item>
       <v-textarea
         ref="userComment"
@@ -21,7 +21,23 @@
         >
       </v-list-item-action>
     </v-list-item>
-    <v-list-item v-for="comment in comments" :key="comment._id"> </v-list-item>
+    <v-divider />
+    <v-list-item-group>
+      <template v-for="(comment, index) in comments">
+        <v-list-item :key="comment._id" three-line selectable>
+          <v-list-item-content>
+            <v-list-item-title
+              >{{ comment.user.nickname }} -
+              <span class="subtitle">{{
+                $moment(comment.date).format('DD/MM/YYYY HH:MM')
+              }}</span></v-list-item-title
+            >
+            <div>{{ comment.text }}</div>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider v-if="index < comments.length - 1" :key="index" />
+      </template>
+    </v-list-item-group>
   </v-list>
 </template>
 
@@ -54,13 +70,13 @@ export default {
     postComment() {
       if (this.$refs.userComment.validate()) {
         this.$axios
-          .$post('/api/post', {
+          .$put('/api/post', {
             comment: this.userComment,
             id: this.postid,
           })
           .then((res) => {
             if (res.status === 'success') {
-              this.userComment = null
+              this.$refs.userComment.reset()
               this.$emit('refresh')
             } else {
               this.$toast.error('Impossibile commentare, riprova più tardi')

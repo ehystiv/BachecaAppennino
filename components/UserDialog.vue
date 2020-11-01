@@ -74,7 +74,7 @@ export default {
 
     addFrazione(frazione) {
       this.$axios
-        .$post('/api/addfrazione', {
+        .$put('/api/userinfo/frazione', {
           frazione,
         })
         .then((res) => {
@@ -99,7 +99,7 @@ export default {
         this.$toast.error('Le password non corrispondono')
       } else {
         this.$axios
-          .$post('/api/changepass', {
+          .$put('/api/userinfo/password', {
             password: pass1,
           })
           .then((res) => {
