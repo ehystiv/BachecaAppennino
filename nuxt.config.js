@@ -46,7 +46,13 @@ export default {
     '@nuxtjs/auth',
   ],
 
-  serverMiddleware: isServerlessEnvironment ? [] : ['~/api/index.js'],
+  serverMiddleware: isServerlessEnvironment
+    ? []
+    : [
+        {
+          '/api': '~/src/api/index.js',
+        },
+      ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {

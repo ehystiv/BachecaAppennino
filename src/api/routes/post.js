@@ -1,7 +1,7 @@
 const { Router } = require('express')
 
-const Post = require('../../src/db/schemas/post').model
-const User = require('../../src/db/schemas/user').model
+const Post = require('../../db/schemas/post').model
+const User = require('../../db/schemas/user').model
 
 const router = new Router()
 

@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 
-const connectToDB = require('./../src/db/connectToDB')
+const connectToDB = require('../db/connectToDB')
 
 try {
   // Create express instance

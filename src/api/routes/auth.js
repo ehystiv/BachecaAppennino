@@ -2,7 +2,7 @@ const { Router } = require('express')
 const { compareSync } = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const User = require('./../../src/db/schemas/user').model
+const User = require('../../db/schemas/user').model
 
 const router = new Router()
 
