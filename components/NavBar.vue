@@ -59,15 +59,7 @@
 </template>
 
 <script>
-import LoginDialog from '~/components/LoginDialog'
-import UserDialog from '~/components/UserDialog'
-
 export default {
-  components: {
-    LoginDialog,
-    UserDialog,
-  },
-
   data() {
     return {
       title: 'Bacheca Appennino',

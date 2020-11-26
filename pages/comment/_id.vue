@@ -14,15 +14,7 @@
 </template>
 
 <script>
-import PostCard from '~/components/PostCard'
-import CommentList from '~/components/CommentList'
-
 export default {
-  components: {
-    PostCard,
-    CommentList,
-  },
-
   async asyncData({ params, $axios }) {
     const id = params.id
 

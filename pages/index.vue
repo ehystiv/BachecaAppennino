@@ -15,13 +15,7 @@
 </template>
 
 <script>
-import FAQ from '~/components/Faq'
-import PostCard from '~/components/PostCard'
-import PostBox from '~/components/PostBox'
-
 export default {
-  components: { FAQ, PostCard, PostBox },
-
   async asyncData({ $axios }) {
     const { posts } = await $axios.$get('/api/post')
 
