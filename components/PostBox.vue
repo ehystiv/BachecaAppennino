@@ -2,6 +2,9 @@
   <v-card color="accent" outlined flat class="mb-5">
     <v-card-title>Scrivi un post</v-card-title>
     <v-container fluid>
+      <div v-if="!$auth.loggedIn">
+        Devi essere registarto per poter scrivere!
+      </div>
       <v-form ref="postForm" :disabled="!$auth.loggedIn">
         <v-text-field
           v-model="newPost.title"
