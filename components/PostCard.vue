@@ -10,6 +10,12 @@
       {{ $moment(post.date).format('DD/MM/YYYY HH:MM') }}</v-card-subtitle
     >
     <v-card-text class="body-1 black--text">{{ post.text }}</v-card-text>
+    <v-card-actions v-if="comment">
+      <v-spacer />
+      <v-btn text :to="'/comment/' + post._id" nuxt
+        >Visualizza commenti ({{ post.comment.length }})</v-btn
+      >
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -21,6 +27,10 @@ export default {
     post: {
       type: Object,
       default: () => {},
+    },
+    comment: {
+      type: Boolean,
+      default: () => false,
     },
   },
 }

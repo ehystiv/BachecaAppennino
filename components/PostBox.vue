@@ -2,13 +2,16 @@
   <v-card color="accent" outlined flat class="mb-5">
     <v-card-title>Scrivi un post</v-card-title>
     <v-container fluid>
+      <div v-if="!$auth.loggedIn">
+        Devi essere registarto per poter scrivere!
+      </div>
       <v-form ref="postForm" :disabled="!$auth.loggedIn">
         <v-text-field
           v-model="newPost.title"
           outlined
           label="Titolo"
           counter="50"
-          :rules="[rules.maxLenght]"
+          :rules="[rules.maxLenght, rules.required]"
           maxlength="50"
         >
         </v-text-field>
@@ -39,23 +42,26 @@ export default {
   data() {
     return {
       newPost: {
-        title: null,
-        text: null,
+        title: '',
+        text: '',
         anon: false,
       },
 
       rules: {
         maxLenght: (v) =>
           v ? v.length <= 50 : false || 'Massimo 50 caratteri',
+        required: (v) =>
+          (!!v && v.trim().length !== 0) || 'Il campo è obbligatorio',
       },
     }
   },
 
   methods: {
     postIt() {
+      this.newPost.title = this.newPost.title.trim()
       if (this.$refs.postForm.validate()) {
         this.$axios
-          .$post('/api/postit', {
+          .$post('/api/post', {
             post: this.newPost,
             user: this.$auth.user._id,
           })
@@ -65,12 +71,12 @@ export default {
               this.$refs.postForm.reset()
               this.$toast.success('Postato!')
             } else if (res.status === 'failed') {
-              this.$toast.error('Impossibili postare, riprova più tardi')
+              this.$toast.error('Impossibile postare, riprova più tardi')
             }
           })
           .catch((err) => {
             console.log(err)
-            this.$toast.error('Impossibili postare, riprova più tardi')
+            this.$toast.error('Impossibile postare, riprova più tardi')
           })
       }
     },

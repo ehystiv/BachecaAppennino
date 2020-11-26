@@ -88,7 +88,7 @@ export default {
       },
 
       rules: {
-        required: (v) => !!v || 'Campo obbligatorio',
+        required: (v) => (!!v && v.trim().length !== 0) || 'Campo obbligatorio',
         email: (v) => /.+@.+\..+/.test(v) || "l'Email deve essere valida",
       },
     }
@@ -97,7 +97,7 @@ export default {
   methods: {
     async register() {
       if (this.$refs.form.validate()) {
-        const result = await this.$axios.$post('/api/signup', this.signup)
+        const result = await this.$axios.$post('/api/auth/signup', this.signup)
 
         if (result.status === 'success') {
           this.$nuxt.$loading.finish()
