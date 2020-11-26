@@ -3,7 +3,7 @@
     <v-row justify="center" align="start">
       <v-col cols="12" sm="12" md="4" lg="4">
         <PostBox @reload="reload()" />
-        <FAQ />
+        <FAQ v-if="!$vuetify.breakpoint.mobile" />
       </v-col>
       <v-col cols="12" sm="12" md="8" lg="8">
         <div v-for="post in posts" :key="post._id">
