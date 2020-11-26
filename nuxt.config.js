@@ -1,5 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
+// eslint-disable-next-line
 const isServerlessEnvironment = process.env.ON_VERCEL == 'true'
 
 export default {
