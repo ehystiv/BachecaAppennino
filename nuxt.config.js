@@ -1,5 +1,3 @@
-import colors from 'vuetify/es5/util/colors'
-
 // eslint-disable-next-line
 const isServerlessEnvironment = process.env.ON_VERCEL == 'true'
 
@@ -102,13 +100,13 @@ export default {
       dark: false,
       themes: {
         light: {
-          primary: colors.green.darken1,
-          accent: colors.blue.accent1,
-          secondary: colors.green.darken5,
-          info: colors.teal.lighten1,
-          warning: colors.yellow.darken2,
-          error: colors.red.darken1,
-          success: colors.green.accent3,
+          primary: '#1B5E20',
+          accent: '#82B1FF',
+          secondary: '#43A047',
+          info: '#26A69A',
+          warning: '#FBC02D',
+          error: '#E53935',
+          success: '#00E676',
         },
       },
     },
