@@ -9,7 +9,7 @@ module.exports = function () {
     let connectionUrl
 
     if (process.env.NODE_ENV === 'production')
-      connectionUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.wxiii.mongodb.net/${process.env.DB_NAME}?retryWrites=true`
+      connectionUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${process.env.MONGO_URL}/${process.env.DB_NAME}?retryWrites=true`
     else
       connectionUrl = `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_IP_DEV}:${process.env.DB_PORT}/${process.env.DB_NAME_TEST}`
 
