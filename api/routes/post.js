@@ -6,7 +6,7 @@ const User = require('../../src/db/schemas/user').model
 const router = new Router()
 
 router.get('/post', async (req, res, next) => {
-  const id = req.query.id ?? false
+  const id = req.query.id ? req.query.id : false
 
   if (id) {
     try {
