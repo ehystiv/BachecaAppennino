@@ -1,8 +1,13 @@
 const jwt = require('jsonwebtoken')
 
 module.exports = function (req, res, next) {
+  let token
+  if (req && req.headers && req.headers.authorization)
+    token = req.headers.authorization.split(' ')[1]
+  else token = null
+
   req.JWT = {
-    token: req?.headers?.authorization?.split(' ')[1] ?? null,
+    token,
     isValid() {
       if (this.token === null) return false
       try {
