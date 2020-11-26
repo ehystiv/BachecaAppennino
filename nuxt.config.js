@@ -1,5 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
+const isServerlessEnvironment = process.env.ON_VERCEL == 'true'
+
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -43,9 +45,7 @@ export default {
     '@nuxtjs/auth',
   ],
 
-  serverMiddleware: {
-    '/api': '~/api',
-  },
+  serverMiddleware: isServerlessEnvironment ? [] : ['~/api/index.js'],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
