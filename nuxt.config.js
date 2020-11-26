@@ -1,5 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
+const isServerlessEnvironment = process.env.ON_VERCEL == 'true'
+
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -13,7 +15,7 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [],
+  css: ['~/assets/toast.scss'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [],
@@ -43,14 +45,14 @@ export default {
     '@nuxtjs/auth',
   ],
 
-  serverMiddleware: {
-    '/api': '~/api',
-  },
+  serverMiddleware: isServerlessEnvironment ? [] : ['~/api/index.js'],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: '/',
-    browserBaseURL: '/',
+    baseURL:
+      process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8080',
+    browserBaseURL:
+      process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:8080',
     retry: { retries: 3 },
   },
 
@@ -58,29 +60,36 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/api/login', method: 'post', propertyName: 'token' },
+          login: {
+            url: '/api/auth/login',
+            method: 'post',
+            propertyName: 'token',
+          },
           logout: false,
-          user: { url: '/api/user', method: 'post', propertyName: 'data' },
+          user: { url: '/api/auth/user', method: 'post', propertyName: 'data' },
         },
         tokenRequired: true,
         tokenType: 'Bearer',
       },
     },
     redirect: {
-      login: '/?message="Accesso effettuato"',
       logout: '/',
+    },
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 30,
     },
   },
 
   loading: {
     name: 'chasing-dots',
-    color: '#ff5638',
+    color: '#0099ff',
     background: 'white',
     height: '4px',
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
+    defaultAssets: { icons: 'fa' },
     customVariables: ['~/assets/variables.scss'],
     theme: {
       dark: false,
@@ -107,8 +116,15 @@ export default {
   toast: {
     position: 'top-right',
     duration: 5000,
+    className: 'toast',
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
+
+  ssr: false,
+
+  server: {
+    port: 8080,
+  },
 }

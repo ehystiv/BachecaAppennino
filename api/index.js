@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const jwt = require('jsonwebtoken')
+const morgan = require('morgan')
 
 const connectToDB = require('./../src/db/connectToDB')
 
@@ -9,24 +9,25 @@ try {
   const app = express()
 
   // Require API routes
-  const signup = require('./routes/signup')
-  const login = require('./routes/login')
-  const user = require('./routes/user')
-  const postit = require('./routes/postit')
+  const validateToken = require('./validateToken')
+  const auth = require('./routes/auth')
+  const post = require('./routes/post')
+  const userInfo = require('./routes/userInfo')
+
+  app.set('trust proxy', true)
 
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
+  app.use(validateToken)
+  app.use(
+    morgan(
+      '[ from :remote-addr ] :method :http-version \t:url \tstatus::status - :response-time ms'
+    )
+  )
 
-  app.use((req, res, next) => {
-    req.jwtToken = req?.headers?.authorization.split(' ')[1] ?? null
-
-    next()
-  })
-
-  app.use(signup)
-  app.use(login)
-  app.use(user)
-  app.use(postit)
+  app.use('/auth', auth)
+  app.use(post)
+  app.use('/userinfo', userInfo)
 
   connectToDB()
 

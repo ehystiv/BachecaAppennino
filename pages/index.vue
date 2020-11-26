@@ -1,87 +1,48 @@
 <template>
   <v-container fluid>
     <v-row justify="center" align="start">
-      <v-col sm="12" md="12" lg="4">
-        <v-card color="accent" outlined flat>
-          <v-card-title>Posta!</v-card-title>
-          <v-container fluid>
-            <v-form ref="postForm" :disabled="!$auth.loggedIn">
-              <v-text-field
-                v-model="newPost.title"
-                outlined
-                label="Titolo"
-                counter="50"
-                :rules="[rules.maxLenght]"
-                maxlength="50"
-              >
-              </v-text-field>
-              <v-textarea
-                v-model="newPost.text"
-                outlined
-                rows="3"
-                dense
-                label="Scrivi quel che pensi..."
-              ></v-textarea>
-              <v-checkbox
-                v-model="newPost.anon"
-                label="Posta anonimamente"
-              ></v-checkbox>
-            </v-form>
-          </v-container>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn :disabled="!$auth.loggedIn" @click="postIt()">Posta</v-btn>
-          </v-card-actions>
-        </v-card>
+      <v-col cols="12" sm="12" md="4" lg="4">
+        <PostBox @reload="reload()" />
+        <FAQ v-if="!$vuetify.breakpoint.mobile" />
       </v-col>
-      <v-col sm="12" md="12" lg="8">
-        <v-card v-for="post in posts" :key="post._id">
-          <v-card-title>{{ post.text }}</v-card-title>
-          <v-card-subtitle
-            >{{ post.anon ? post.author.anon_name : post.author.nickname }} -
-            {{ $moment(post.date).format('DD/MM/YYYY HH:MM') }}</v-card-subtitle
-          >
-        </v-card>
+      <v-col cols="12" sm="12" md="8" lg="8">
+        <div v-for="post in posts" :key="post._id">
+          <PostCard :post="post" :comment="false" />
+        </div>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import FAQ from '~/components/Faq'
+import PostCard from '~/components/PostCard'
+import PostBox from '~/components/PostBox'
+
 export default {
-  components: {},
+  components: { FAQ, PostCard, PostBox },
+
+  async asyncData({ $axios }) {
+    const { posts } = await $axios.$get('/api/post')
+
+    return { posts }
+  },
   data() {
-    return {
-      newPost: {
-        title: null,
-        text: null,
-        anon: false,
-      },
+    return {}
+  },
 
-      posts: [],
-
-      rules: {
-        maxLenght: (v) =>
-          v ? v.length <= 50 : false || 'Massimo 50 caratteri',
-      },
-    }
+  mounted() {
+    setInterval(() => this.$nuxt.refresh(), 1000 * 60 * 10)
   },
 
   methods: {
-    postIt() {
-      if (this.$refs.postForm.validate()) {
-        this.$axios
-          .$post('/api/postit', {
-            post: this.newPost,
-            user: this.$auth.user._id,
-          })
-          .then((res) => {
-            console.log(res.status, res.error)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      }
+    reload() {
+      this.$axios
+        .$get('/api/post')
+        .then((res) => (this.posts = res.posts))
+        .catch((e) => {
+          console.error(e)
+        })
     },
   },
 

@@ -38,6 +38,27 @@
                 </v-col>
               </v-row>
             </v-form>
+            <span class="title">DISCLAIMER:</span>
+            <ul>
+              <li>
+                Non controllo la vostra mail, potete usarne anche una falsa
+              </li>
+              <li>Il nickname è unico, e non potete modificarlo in seguito</li>
+              <li>
+                La password la conservo cifrata, in maniera che sia impossibile
+                decifrarla e quindi conoscerla (le vostre password sono al
+                sicuro con me)
+              </li>
+              <li>
+                Non uso alcun cookie (se non quello per mantenervi collegati)
+              </li>
+              <li>Non condivido ALCUN dato con nessuno</li>
+              <li>Non potete (per ora) cancellare il vostro account</li>
+              <li>
+                Questo sito è stato programmato in tipo un'ora: gli errori ci
+                sono, ma vedeteli una feature estetica
+              </li>
+            </ul>
           </v-container>
           <v-card-actions>
             <v-spacer />
@@ -67,7 +88,7 @@ export default {
       },
 
       rules: {
-        required: (v) => !!v || 'Campo obbligatorio',
+        required: (v) => (!!v && v.trim().length !== 0) || 'Campo obbligatorio',
         email: (v) => /.+@.+\..+/.test(v) || "l'Email deve essere valida",
       },
     }
@@ -76,7 +97,7 @@ export default {
   methods: {
     async register() {
       if (this.$refs.form.validate()) {
-        const result = await this.$axios.$post('/api/signup', this.signup)
+        const result = await this.$axios.$post('/api/auth/signup', this.signup)
 
         if (result.status === 'success') {
           this.$nuxt.$loading.finish()

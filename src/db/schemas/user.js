@@ -7,7 +7,6 @@ const _schema = new Schema({
     type: String,
     default: v4(),
     immutable: true,
-    get: (v) => '#' + v,
   },
 
   email: {
