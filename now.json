@@ -9,6 +9,10 @@
       "use": "@now/node"
     },
     {
+      "src": "src/**/*.js",
+      "use": "@now/node"
+    },
+    {
       "src": "nuxt.config.js",
       "use": "@nuxtjs/now-builder"
     }
