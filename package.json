@@ -28,13 +28,13 @@
     "mongoose": "^5.10.16",
     "morgan": "^1.10.0",
     "nuxt": "^2.14.6",
-    "uuid": "^8.3.1"
+    "uuid": "^8.3.1",
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "@nuxtjs/vuetify": "^1.11.2"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.1",
     "@nuxtjs/eslint-config": "^4.0.0",
     "@nuxtjs/eslint-module": "^3.0.1",
-    "@nuxtjs/vuetify": "^1.11.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
