@@ -14,8 +14,8 @@
     }
   ],
   "rewrites": [
-    { "source": "/api/(.*)", "dest": "/api" },
-    { "source": "/api", "dest": "/api" },
-    { "source": "/(.*)", "dest": "$1" }
+    { "source": "/api/(.*)", "destination": "/api" },
+    { "source": "/api", "destination": "/api" },
+    { "source": "/(.*)", "destination": "$1" }
   ]
 }
