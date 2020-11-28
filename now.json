@@ -13,7 +13,7 @@
       "use": "@nuxtjs/now-builder"
     }
   ],
-  "routes": [
+  "rewrites": [
     { "src": "/api/(.*)", "dest": "/api" },
     { "src": "/api", "dest": "/api" },
     { "src": "/(.*)", "dest": "$1" }
