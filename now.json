@@ -5,11 +5,11 @@
   },
   "builds": [
     {
-      "source": "source/api/index.js",
+      "src": "source/api/index.js",
       "use": "@now/node"
     },
     {
-      "source": "nuxt.config.js",
+      "src": "nuxt.config.js",
       "use": "@nuxtjs/now-builder"
     }
   ],
