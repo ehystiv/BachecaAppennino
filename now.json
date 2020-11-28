@@ -5,17 +5,17 @@
   },
   "builds": [
     {
-      "src": "src/api/index.js",
+      "source": "source/api/index.js",
       "use": "@now/node"
     },
     {
-      "src": "nuxt.config.js",
+      "source": "nuxt.config.js",
       "use": "@nuxtjs/now-builder"
     }
   ],
   "rewrites": [
-    { "src": "/api/(.*)", "dest": "/api" },
-    { "src": "/api", "dest": "/api" },
-    { "src": "/(.*)", "dest": "$1" }
+    { "source": "/api/(.*)", "dest": "/api" },
+    { "source": "/api", "dest": "/api" },
+    { "source": "/(.*)", "dest": "$1" }
   ]
 }
